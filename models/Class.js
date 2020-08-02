@@ -18,16 +18,16 @@ const Class_Schema = new mongoose.Schema({
     required: true,
   },
   teacher_name: {
-    type: String
+    type: String,
     required: true,
   },
   institute_name: {
     type: String
   },
-  class_uid: {
-    type: String,
-    required: true,
-  },
+  // class_uid: {
+  //   type: String,
+  //   required: true,
+  // },
   student_list: [{
     student_uid: String,
     student_payday: Date.now

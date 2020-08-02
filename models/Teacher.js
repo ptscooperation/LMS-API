@@ -6,7 +6,7 @@ const TeacherSchema = new mongoose.Schema({
     required: true,
   },
   institute_name: {
-    type: String
+    type: String,
   },
   teacher_phone_number: {
     type: String,
@@ -17,15 +17,18 @@ const TeacherSchema = new mongoose.Schema({
     required: true,
   },
   teacher_payday: {
-  	type: Date.now
+    type: Date,
+    default: Date.now,
   },
-  teacher_uid: {
-    type: String,
-    required: true,
-  },
-  teacher_class: [{
-    class_uid: String
-  }],
+  // teacher_uid: {
+  //   type: String,
+  //   required: true,
+  // },
+  teacher_class: [
+    {
+      class_uid: String,
+    },
+  ],
   updated_date: {
     type: Date,
     default: Date.now,
