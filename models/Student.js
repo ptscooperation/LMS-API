@@ -39,6 +39,7 @@ const StudentSchema = new mongoose.Schema({
   student_uid: {
     type: String,
     required: true,
+    unique: true,
   },
   student_class: [
     {

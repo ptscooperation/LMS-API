@@ -22,23 +22,30 @@ const Class_Schema = new mongoose.Schema({
     required: true,
   },
   institute_name: {
-    type: String
+    type: String,
   },
   // class_uid: {
   //   type: String,
   //   required: true,
   // },
-  student_list: [{
-    student_uid: String,
-    student_payday: Date.now
-  }],
-  post_list: [{
-    type: String
-  }],
+  student_list: [
+    {
+      student_uid: { type: String },
+      student_payday: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  post_list: [
+    {
+      type: String,
+    },
+  ],
   updated_date: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 module.exports = Class = mongoose.model("class", ClassSchema);

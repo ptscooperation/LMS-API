@@ -80,6 +80,24 @@ router.post("/login/student", async (req, res) => {
   }
 });
 
+router.post("/login/teacher", async (req, res) => {
+  // /users/login ---> /login
+  //Login a registered user
+  try {
+    const { email, password } = req.body;
+    const user = await Tacher.findByCredentials(email, password);
+    if (!user) {
+      return res
+        .status(401)
+        .send({ error: "Login failed! Check authentication credentials" });
+    }
+    const token = await user.generateAuthToken();
+    res.send({ user, token });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
 router.get("/me", auth, async (req, res) => {
   // /users/me --> /me
   // View logged in user profile
