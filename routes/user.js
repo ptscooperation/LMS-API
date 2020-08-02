@@ -1,47 +1,9 @@
 const express = require("express");
-//var cors = require("cors");
+
 const User = require("../models/User");
 const auth = require("../middleware/auth");
 
 const router = express.Router();
-
-//const app = express();
-
-// cors
-//app.options('*', cors())
-//app.use(cors({ origin: true, credentials: true }));
-//app.use((req, res, next) => {
-//    res.header("Access-Control-Allow-Origin", "*");
-//    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//    
-//    next();
-//    if (req.method == 'OPTIONS'){
-//    	res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-//    	return res.status(200).json({});
-//    }
-//});
-
-// router.post("/", async (req, res) => {	// /users ---> /
-//   // Create a new user
-//   User.new()
-//     // .then(
-//     //   const user = new User(req.body);
-//     //   await user.save();
-//     //   const token = await user.generateAuthToken();
-//     //   res.status(201).send({ user, token });
-//     // )
-//     // .catch((error) {
-//     //   res.status(400).send(error);
-//     // ) 
-//   try {
-//     const user = new User(req.body);
-//     await user.save();
-//     const token = await user.generateAuthToken();
-//     res.status(201).send({ user, token });
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
 
 router.post("/", async (req, res) => {	// /users ---> /
   // Create a new user
