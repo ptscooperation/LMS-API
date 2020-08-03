@@ -7,7 +7,9 @@ var cors = require("cors");
 
 // routes
 const userRouter = require("./routes/user"); //auth
-const books = require("./routes/api/books");
+const { request } = require("express");
+//const books = require("./routes/api/books");
+const teacher = require("./routes/api/teacher");
 
 const app = express();
 
@@ -34,8 +36,9 @@ app.get("/users", (req, res) => res.send("Hello user!"));
 
 // use Routes
 //app.post("/post-test", books);
-app.use("/post-test", books); //pumal
-app.use("/api/books", books);
+//app.use("/post-test", books); //pumal
+//app.use("/api/books", books);
+app.use("/api/teacher", teacher);
 app.use("/users", userRouter);
 
 const port = process.env.PORT || 8082;

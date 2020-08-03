@@ -10,6 +10,7 @@ const TeacherSchema = new mongoose.Schema({
   },
   institute_name: {
     type: String,
+    default: "",
   },
   teacher_phone_number: {
     type: String,
