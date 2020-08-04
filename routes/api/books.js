@@ -14,7 +14,7 @@ router.get("/test", (req, res) => res.send("book route testing!"));
 // @description Get all books
 // @access Public
 router.get("/", (req, res) => {
-  Book.find({},{"_id":0, "title":0})
+  Book.find({}, { _id: 0, title: 0 })
     .then((books) => res.json(books))
     .catch((err) => res.status(404).json({ nobooksfound: "No Books found" }));
 });
@@ -62,8 +62,8 @@ router.delete("/:id", (req, res) => {
 //const bodyParser = require('body-parser'); //pumal
 //express().use(bodyParser.urlencoded({ extended: true })); //pumal
 
-express().post('/post-test', (req, res) => {
-  console.log('Got body:', req.body);
+express().post("/post-test", (req, res) => {
+  console.log("Got body:", req.body);
   res.sendStatus(200);
 });
 

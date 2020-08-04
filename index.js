@@ -13,11 +13,6 @@ const teacher = require("./routes/api/teacher");
 
 const app = express();
 
-// app.post('/post-test', (req, res) => {
-//     console.log('Got body:', req.body);
-//     res.sendStatus(200);
-// });
-
 app.use(express.json()); //xx
 app.use(bodyParser.urlencoded({ extended: true })); //pumal
 app.use(userRouter); //auth
@@ -35,8 +30,6 @@ app.get("/", (req, res) => res.send("Hello world!"));
 app.get("/users", (req, res) => res.send("Hello user!"));
 
 // use Routes
-//app.post("/post-test", books);
-//app.use("/post-test", books); //pumal
 //app.use("/api/books", books);
 app.use("/api/teacher", teacher);
 app.use("/users", userRouter);
