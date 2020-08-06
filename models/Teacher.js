@@ -15,6 +15,7 @@ const TeacherSchema = new mongoose.Schema({
   teacher_phone_number: {
     type: String,
     required: true,
+    unique: true,
   },
   nic: {
     type: String,
@@ -46,8 +47,8 @@ const TeacherSchema = new mongoose.Schema({
   // },
   teacher_class: [
     {
-      //class_uid: String,
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "class",
     },
   ],
   tokens: [

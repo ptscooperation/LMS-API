@@ -38,24 +38,11 @@ router.get("/NI/:id", authTeacher, (req, res) => {
 
 // @route GET api/teacher/classlist/
 // @description Get all books
-// @access Public
+// @access Public // .populate('publisher', 'companyName -_id')
 router.get("/classlist/:id", authTeacher, (req, res) => {
-  Teacher.find(
-    { _id: req.params.id },
-    {
-      _id: 0,
-      __v: 0,
-      teacher_phone_number: 0,
-      nic: 0,
-      teacher_email: 0,
-      teacher_password: 0,
-      teacher_payday: 0,
-      teacher_name: 0,
-      institute_name: 0,
-      tokens: 0,
-      updated_date: 0,
-    }
-  )
+  Teacher.findById(req.params.id)
+    .select("teacher_class")
+    .populate("teacher_class")
     .then((teacher) => res.json(teacher))
     .catch((err) =>
       res.status(404).json({ noteacherfound: "Teacher not found" })
