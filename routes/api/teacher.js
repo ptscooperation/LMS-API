@@ -73,17 +73,17 @@ router.get("/classdetails/:id", authTeacher, (req, res) => {
 // @description add/save book
 // @access Public
 router.post("/addclass", authTeacher, function (req, res) {
-  Promise.all([
-    Class.create(req.body),
+  Class.create(req.body).then((classes) =>
     Teacher.updateOne(
       { _id: req.body.teacher_id },
       { $push: { teacher_class: classes._id } }
-    ),
-  ])
-    .then(res.status(200).json({ msg: "Class added successfully" }))
-    .catch((err) =>
-      res.status(400).json({ error: "Unable to add this class" })
-    );
+    )
+  );
+  if (!req.body) {
+    res.status(400).json({ error: "Unable to class this book" });
+  } else {
+    res.status(200).json({ msg: "Class added successfully" });
+  }
 });
 
 // @route GET api/books
