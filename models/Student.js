@@ -43,7 +43,8 @@ const StudentSchema = new mongoose.Schema({
   },
   student_class: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "teacher",
     },
   ],
   tokens: [

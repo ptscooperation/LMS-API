@@ -4,6 +4,7 @@ const router = express.Router();
 // Load Teacher model
 const Teacher = require("../../models/Teacher");
 const Class = require("../../models/Class");
+const Student = require("../../models/Student");
 const authTeacher = require("../../middleware/authTeacher"); //auth
 
 // @route GET api/teacher/test
@@ -72,17 +73,37 @@ router.get("/classdetails/:id", authTeacher, (req, res) => {
 // @description add/save book
 // @access Public
 router.post("/addclass", authTeacher, function (req, res) {
-  Class.create(req.body).then((classes) =>
+  Promise.all([
+    Class.create(req.body),
     Teacher.updateOne(
       { _id: req.body.teacher_id },
       { $push: { teacher_class: classes._id } }
-    )
-  );
-  if (!req.body) {
-    res.status(400).json({ error: "Unable to class this book" });
-  } else {
-    res.status(200).json({ msg: "Class added successfully" });
-  }
+    ),
+  ])
+    .then(res.status(200).json({ msg: "Class added successfully" }))
+    .catch((err) =>
+      res.status(400).json({ error: "Unable to add this class" })
+    );
+});
+
+// @route GET api/books
+// @description add/save book
+// @access Public
+router.post("/addstudent", authTeacher, function (req, res) {
+  Promise.all([
+    Student.updateOne(
+      { student_uid: req.body.student_uid },
+      { $push: { student_class: req.body.class_id } }
+    ),
+    Class.updateOne(
+      { _id: req.body.class_id },
+      { $push: { student_list: { student_uid: req.body.student_uid } } }
+    ),
+  ])
+    .then(res.status(200).json({ msg: "Student added to class successfully" }))
+    .catch((err) =>
+      res.status(400).json({ error: "Unable to add this student to class" })
+    );
 });
 
 module.exports = router;
