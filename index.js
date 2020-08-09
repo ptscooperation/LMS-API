@@ -10,6 +10,7 @@ const userRouter = require("./routes/user"); //auth
 const { request } = require("express");
 //const books = require("./routes/api/books");
 const teacher = require("./routes/api/teacher");
+const student = require("./routes/api/student");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get("/users", (req, res) => res.send("Hello user!"));
 
 // use Routes
 //app.use("/api/books", books);
+app.use("/api/student", student);
 app.use("/api/teacher", teacher);
 app.use("/users", userRouter);
 

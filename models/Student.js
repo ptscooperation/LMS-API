@@ -44,7 +44,7 @@ const StudentSchema = new mongoose.Schema({
   student_class: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "teacher",
+      ref: "class",
     },
   ],
   tokens: [

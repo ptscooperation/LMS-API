@@ -43,7 +43,7 @@ router.get("/NI/:id", authTeacher, (req, res) => {
 router.get("/classlist/:id", authTeacher, (req, res) => {
   Teacher.findById(req.params.id)
     .select("teacher_class")
-    .populate("teacher_class")
+    .populate("teacher_class", "-post_list -student_list -updated_date -__v")
     .then((teacher) => res.json(teacher))
     .catch((err) =>
       res.status(404).json({ noteacherfound: "Teacher not found" })
