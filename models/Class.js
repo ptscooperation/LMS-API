@@ -39,7 +39,8 @@ const ClassSchema = new mongoose.Schema({
   ],
   post_list: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "post",
     },
   ],
   updated_date: {
