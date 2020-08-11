@@ -40,7 +40,7 @@ router.post("/feed", authStudent, (req, res) => {
       student_list: {
         $elemMatch: {
           student_uid: req.body.student_uid,
-          student_payday: { $lte: date30 },
+          student_payday: { $gte: date30 },
         },
       },
     }
