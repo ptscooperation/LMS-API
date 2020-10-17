@@ -124,4 +124,18 @@ router.post("/addpost", authTeacher, function (req, res) {
     );
 });
 
+// @route GET api/teacher/classlist/
+// @description Get all books
+// @access Public // .populate('publisher', 'companyName -_id')
+router.get("/postlist/:id", authTeacher, (req, res) => {
+  console.log(req.params.id)
+  Class.findById(req.params.id)
+    .select("post_list")
+    .populate("post_list", "-subject -grade -class_date -class_time -teacher_name -institute_name -student_list -updated_date -__v")
+    .then((post) => res.json(post))
+    .catch((err) =>
+      res.status(404).json({ noteacherfound: "Post not found" })
+    );
+});
+
 module.exports = router;
