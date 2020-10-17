@@ -45,9 +45,9 @@ router.post("/feed", authStudent, (req, res) => {
       },
     }
   )
-    //.select("post_list")
-    //.populate("post_list")
-    .then((feed) => res.json(feed))
+  .select("post_list")
+  .populate("post_list", "-subject -grade -class_date -class_time -teacher_name -institute_name -student_list -updated_date -__v")
+   .then((feed) => res.json(feed))
     .catch((err) =>
       res.status(404).json({ arrears: "Student was not pay for this month" })
     );
