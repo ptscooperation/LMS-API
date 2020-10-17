@@ -118,17 +118,16 @@ router.post("/addpost", authTeacher, function (req, res) {
       { $push: { post_list: posts._id } }
     )
   )
-    .then(res.status(200).json({ msg: "Post added to class successfully" }))
-    .catch((err) =>
-      res.status(400).json({ error: "Unable to add this post to class" })
-    );
+  .then(res.status(200).json({ msg: "Post added to class successfully" }))
+  .catch((err) =>
+    res.status(400).json({ error: "Unable to add this post to class" })
+  );
 });
 
 // @route GET api/teacher/classlist/
 // @description Get all books
 // @access Public // .populate('publisher', 'companyName -_id')
 router.get("/postlist/:id", authTeacher, (req, res) => {
-  console.log(req.params.id)
   Class.findById(req.params.id)
     .select("post_list")
     .populate("post_list", "-subject -grade -class_date -class_time -teacher_name -institute_name -student_list -updated_date -__v")
