@@ -5,6 +5,7 @@ const router = express.Router();
 const Teacher = require("../../models/Teacher");
 const Class = require("../../models/Class");
 const Student = require("../../models/Student");
+const Post = require("../../models/Post");
 const authTeacher = require("../../middleware/authTeacher"); //auth
 
 // @route GET api/teacher/test
@@ -103,6 +104,23 @@ router.post("/addstudent", authTeacher, function (req, res) {
     .then(res.status(200).json({ msg: "Student added to class successfully" }))
     .catch((err) =>
       res.status(400).json({ error: "Unable to add this student to class" })
+    );
+});
+
+// @route GET api/books
+// @description add/save book
+// @access Public
+router.post("/addpost", authTeacher, function (req, res) {
+  Post.create(req.body)
+  .then((posts) =>
+    Class.updateOne(
+      { _id: req.body.class_id },
+      { $push: { post_list: posts._id } }
+    )
+  )
+    .then(res.status(200).json({ msg: "Post added to class successfully" }))
+    .catch((err) =>
+      res.status(400).json({ error: "Unable to add this post to class" })
     );
 });
 
