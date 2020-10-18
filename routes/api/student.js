@@ -53,4 +53,24 @@ router.post("/feed", authStudent, (req, res) => {
     );
 });
 
+// @route GET api/teacher/classlist/
+// @description Get all books
+// @access Public // .populate('publisher', 'companyName -_id')
+router.get("/studentprofile/:id", authStudent, (req, res) => {
+  Student.find(
+    { _id: req.params.id },
+    {
+      __v: 0,
+      student_password: 0,
+      student_class: 0,
+      tokens: 0,
+      updated_date: 0,
+    }
+  )
+    .then((student) => res.json(student))
+    .catch((err) =>
+      res.status(404).json({ noclassfound: "Student not found" })
+    );
+});
+
 module.exports = router;
