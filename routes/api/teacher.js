@@ -112,16 +112,16 @@ router.post("/addstudent", authTeacher, function (req, res) {
 // @access Public
 router.post("/addpost", authTeacher, function (req, res) {
   Post.create(req.body)
-  .then((posts) =>
-    Class.updateOne(
-      { _id: req.body.class_id },
-      { $push: { post_list: posts._id } }
+    .then((posts) =>
+      Class.updateOne(
+        { _id: req.body.class_id },
+        { $push: { post_list: posts._id } }
+      )
     )
-  )
-  .then(res.status(200).json({ msg: "Post added to class successfully" }))
-  .catch((err) =>
-    res.status(400).json({ error: "Unable to add this post to class" })
-  );
+    .then(res.status(200).json({ msg: "Post added to class successfully" }))
+    .catch((err) =>
+      res.status(400).json({ error: "Unable to add this post to class" })
+    );
 });
 
 // @route GET api/teacher/classlist/
@@ -130,11 +130,12 @@ router.post("/addpost", authTeacher, function (req, res) {
 router.get("/postlist/:id", authTeacher, (req, res) => {
   Class.findById(req.params.id)
     .select("post_list")
-    .populate("post_list", "-subject -grade -class_date -class_time -teacher_name -institute_name -student_list -updated_date -__v")
+    .populate(
+      "post_list",
+      "-subject -grade -class_date -class_time -teacher_name -institute_name -student_list -updated_date -__v"
+    )
     .then((post) => res.json(post))
-    .catch((err) =>
-      res.status(404).json({ noteacherfound: "Post not found" })
-    );
+    .catch((err) => res.status(404).json({ noteacherfound: "Post not found" }));
 });
 
 // @route GET api/teacher/classlist/
@@ -169,6 +170,17 @@ router.post("/studentfee", authTeacher, function (req, res) {
     .then(res.status(200).json({ msg: "Student fee update done" }))
     .catch((err) =>
       res.status(404).json({ noclassfound: "Student fee update failed" })
+    );
+});
+
+// @route GET api/teacher/classlist/
+// @description Get all books
+// @access Public // .populate('publisher', 'companyName -_id')
+router.delete("/deletepost/:id", authTeacher, (req, res) => {
+  Post.findByIdAndRemove(req.params.id, req.body)
+    .then((post) => res.json({ mgs: "Post deleted successfully" }))
+    .catch((err) =>
+      res.status(404).json({ noteacherfound: "Post delete failed" })
     );
 });
 
