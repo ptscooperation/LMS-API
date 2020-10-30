@@ -17,6 +17,7 @@ const app = express();
 app.use(express.json()); //xx
 app.use(bodyParser.urlencoded({ extended: true })); //pumal
 app.use(userRouter); //auth
+app.use(express.static("./"));
 
 // Connect Database
 connectDB();
@@ -27,8 +28,12 @@ app.use(cors({ origin: true, credentials: true }));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-app.get("/", (req, res) => res.send("Hello world!"));
-app.get("/users", (req, res) => res.send("Hello user!"));
+app.get("/", (req, res) =>
+  res.send(
+    "<h2>Welcome to PTS'LMS!</h2><br><img src='assets/img/pts-logo.png' with='240px' height='240px'><br><br><img src='assets/img/lms-logo.png' with='240px' height='240px'>"
+  )
+);
+app.get("/users", (req, res) => res.send("Hello LMS user!"));
 
 // use Routes
 //app.use("/api/books", books);
@@ -38,4 +43,4 @@ app.use("/users", userRouter);
 
 const port = process.env.PORT || 8082;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => console.log(`LMS Server running on port ${port}`));
