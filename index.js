@@ -17,7 +17,6 @@ const app = express();
 app.use(express.json()); //xx
 app.use(bodyParser.urlencoded({ extended: true })); //pumal
 app.use(userRouter); //auth
-app.use(express.static("./"));
 
 // Connect Database
 connectDB();
@@ -30,7 +29,7 @@ app.use(express.json({ extended: false }));
 
 app.get("/", (req, res) =>
   res.send(
-    "<h2>Welcome to PTS'LMS!</h2><br><img src='assets/img/pts-logo.png' with='240px' height='240px'><br><br><img src='assets/img/lms-logo.png' with='240px' height='240px'>"
+    "<h2>Welcome to PTS'LMS!</h2><br><img src='https://i.postimg.cc/3w8wDYh9/Document-from-zero.png' with='240px' height='240px'><br><br><img src='https://i.postimg.cc/ZnVG2t2Y/Document-from-zero-1.png' with='240px' height='240px'>"
   )
 );
 app.get("/users", (req, res) => res.send("Hello LMS user!"));
