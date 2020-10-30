@@ -43,4 +43,4 @@ app.use("/users", userRouter);
 
 const port = process.env.PORT || 8082;
 
-app.listen(port, () => console.log(`LMS Server running on port ${port}`));
+app.listen(port, () => console.log(`PTS's LMS Server running on port ${port}`));
