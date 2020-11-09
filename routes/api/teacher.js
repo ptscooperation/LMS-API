@@ -188,7 +188,7 @@ router.delete("/deletepost/:id", authTeacher, (req, res) => {
 // @description Get all books
 // @access Public
 router.get("/studentlist/:id", authTeacher, (req, res) => {
-  Class.find({ _id: req.params.id })
+  Class.findById(req.params.id)
     .select("student_list")
     .populate(
       "student_list",
