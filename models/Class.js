@@ -33,7 +33,6 @@ const ClassSchema = new mongoose.Schema({
       student_uid: { type: String },
       student_payday: {
         type: Date,
-        default: Date.now,
       },
     },
   ],
