@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const moment = require("moment");
 
 // Load Teacher model
 const Teacher = require("../../models/Teacher");
@@ -189,19 +188,8 @@ router.delete("/deletepost/:id", authTeacher, (req, res) => {
 // @description Get all books
 // @access Public
 router.get("/studentlist/:id", authTeacher, (req, res) => {
-  var date30 = moment(new Date()).subtract(30, "days").format("YYYY-MM-DD");
-  Class.find(
-    { _id: req.params.id },
-    {
-      student_list: {
-        $elemMatch: {
-          student_payday: { $gte: date30 },
-        },
-      },
-    }
-  )
+  Class.findById(req.params.id)
     .select("student_list")
-    .select("student_uid")
     .populate(
       "student_list",
       "-subject -grade -class_date -class_time -teacher_name -institute_name -post_list -updated_date -__v"
