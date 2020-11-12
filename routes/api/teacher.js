@@ -161,10 +161,12 @@ router.post("/searchstudent", authTeacher, function (req, res) {
 // @description Get all books
 // @access Public // .populate('publisher', 'companyName -_id')
 router.post("/studentfee", authTeacher, function (req, res) {
-  Class.updateOne(
-    { _id: req.body.class_id },
-    { student_list: { student_uid: req.body.student_uid } },
-    { $push: { student_list: { student_payday: new Date() } } }
+  Class.update(
+    {
+      _id: req.body.class_id,
+      student_list: { $elemMatch: { student_uid: req.body.student_uid } },
+    },
+    { $set: { "student_list.$.student_payday": new Date() } }
   )
     .then(res.status(200).json({ msg: "Student fee update done" }))
     .catch((err) =>
