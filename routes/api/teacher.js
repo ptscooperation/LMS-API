@@ -143,15 +143,14 @@ router.get("/postlist/:id", authTeacher, (req, res) => {
 // @access Public // .populate('publisher', 'companyName -_id')
 router.post("/searchstudent", authTeacher, function (req, res) {
   Class.find(
-    { _id: req.body.class_id },
-    { student_list: { student_uid: req.body.student_uid } }
+    {
+      _id: req.body.class_id,
+    },
+    {
+      student_list: { $elemMatch: { student_uid: req.body.student_uid } },
+    },
+    { _id: 0 }
   )
-    .select("student_list")
-    .select("student_uid")
-    .populate(
-      "student_list",
-      "-subject -grade -class_date -class_time -teacher_name -institute_name -post_list -updated_date -__v"
-    )
     .then((student) => res.json(student))
     .catch((err) =>
       res.status(404).json({ noclassfound: "Student not found" })
