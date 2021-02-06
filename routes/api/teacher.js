@@ -90,7 +90,11 @@ router.post("/addclass", authTeacher, function (req, res) {
 // @route GET api/books
 // @description add/save book
 // @access Public
-router.post("/addstudent", authTeacher, function (req, res) {
+router.post("/addstudent", authTeacher, async function (req, res, next) {
+  let name = await Student.findOne(
+    { student_uid: req.body.student_uid },
+    { student_name: 1 }
+  ).exec();
   Promise.all([
     Student.updateOne(
       { student_uid: req.body.student_uid },
@@ -98,13 +102,21 @@ router.post("/addstudent", authTeacher, function (req, res) {
     ),
     Class.updateOne(
       { _id: req.body.class_id },
-      { $push: { student_list: { student_uid: req.body.student_uid } } }
+      {
+        $push: {
+          student_list: {
+            student_uid: req.body.student_uid,
+            student_name: name.student_name,
+          },
+        },
+      }
     ),
   ])
     .then(res.status(200).json({ msg: "Student added to class successfully" }))
     .catch((err) =>
       res.status(400).json({ error: "Unable to add this student to class" })
     );
+  next();
 });
 
 // @route GET api/books

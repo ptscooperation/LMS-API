@@ -31,6 +31,7 @@ const ClassSchema = new mongoose.Schema({
   student_list: [
     {
       student_uid: { type: String },
+      student_name: { type: String },
       student_payday: {
         type: Date,
       },
