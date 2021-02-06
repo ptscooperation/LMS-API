@@ -34,6 +34,7 @@ const ClassSchema = new mongoose.Schema({
       student_name: { type: String },
       student_payday: {
         type: Date,
+        default: new Date(1999, 07, 29),
       },
     },
   ],
