@@ -9,6 +9,10 @@ const Post_Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  kind: {
+    type: String,
+    required: true,
+  },
     updated_date: {
     type: Date,
     default: Date.now,
